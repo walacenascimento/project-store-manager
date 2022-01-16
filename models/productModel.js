@@ -37,9 +37,23 @@ const findProductById = async (id) => {
    return productId;
 };
 
+// Requisito 3
+  const productUpdate = async (id, name, quantity) => {
+    if (!ObjectId.isValid(id)) {
+      return null;
+    }
+    const connect = await connection();
+    await connect.collection('products').updateOne({ _id: ObjectId(id) },
+    { $set: { name, quantity } });
+
+    const product = await connect.collection('products').findOne({ _id: ObjectId(id) });
+    return product;
+};
+
 module.exports = {
   create,
   findProductName,
   findAllProducts,
   findProductById,
+  productUpdate,
 };

@@ -43,8 +43,25 @@ const getProductId = async (req, res, _next) => {
    return res.status(200).json(product);
 };
 
+// Requisito 3
+const updateProduct = async (req, res, _next) => {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
+  const update = await services.updateProd(id, name, quantity);
+
+  if (update.status) {
+    const error = {
+      err: { code: 'invalid_data', message: update.message },
+    };
+    return res.status(update.status).json(error);
+  }
+
+  return res.status(200).json(update);
+};
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductId,
+  updateProduct,
 }; // modulo de exportação das funções.

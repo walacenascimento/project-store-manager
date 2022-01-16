@@ -24,7 +24,7 @@ const productCreate = async (name, quantity) => {
     return ({ status: 422, message: 'Product already exists' });
   } // condição que verifica se o produto existe
 
-  const productValidate = await validateProduct(name, quantity); // constate que armazena o valor da função validateProduct
+  const productValidate = await validateProduct(name, quantity); // constante que armazena o valor da função validateProduct
 
   if (productValidate && productValidate.status) {
     return {
@@ -63,8 +63,26 @@ const findProductId = async (id) => {
   return product;
 };
 
+// Requisito 3
+
+ const updateProd = async (id, prodName, prodQuantity) => {
+   const productValidate = await validateProduct(prodName, prodQuantity);
+
+    if (productValidate && productValidate.status) {
+     return {
+       status: productValidate.status,
+       message: productValidate.message,
+      };
+    }
+
+    const { _id, name, quantity } = await models.productUpdate(id, prodName, prodQuantity);
+    const product = { _id, name, quantity };
+     return product;
+ };
+
 module.exports = {
   productCreate,
   getAllProd,
   findProductId,
+   updateProd,
 };
