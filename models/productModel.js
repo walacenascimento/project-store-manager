@@ -49,6 +49,23 @@ const findProductById = async (id) => {
     const product = await connect.collection('products').findOne({ _id: ObjectId(id) });
     return product;
 };
+// Requisito 4
+const deleteProductId = async (id) => {
+  if (!ObjectId.isValid(id)) {
+    return null;
+   }
+
+   const connect = await connection();
+   const productId = await connect.collection('products').findOne({ _id: ObjectId(id) });
+
+   if (!productId) {
+     return { status: 422, message: 'wrong id format' };
+   }
+
+    await connect.collection('products').deleteOne({ _id: ObjectId(id) });
+
+     return productId;
+};
 
 module.exports = {
   create,
@@ -56,4 +73,5 @@ module.exports = {
   findAllProducts,
   findProductById,
   productUpdate,
+  deleteProductId,
 };

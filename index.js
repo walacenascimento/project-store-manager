@@ -20,5 +20,6 @@ app.post('/products', controllers.createProduct); // Verbo http usando o método
 app.get('/products', controllers.getAllProducts); // Lista todos os produtos
 app.get('/products/:id', controllers.getProductId); // lista os produtos pelo id
 app.put('/products/:id', controllers.updateProduct); // atualiza os produtos individualmente, pelo id de cada um.
+app.delete('/products/:id', controllers.deleteProduct);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

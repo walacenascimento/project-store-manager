@@ -80,9 +80,22 @@ const findProductId = async (id) => {
      return product;
  };
 
+ // Requisito 4
+ const deleteProd = async (id) => {
+  const product = await models.deleteProductId(id);
+
+  if (!product) {
+      return { status: 422, message: 'Wrong id format',
+      };
+  }
+
+  return product;
+};
+
 module.exports = {
   productCreate,
   getAllProd,
   findProductId,
-   updateProd,
+  updateProd,
+  deleteProd,
 };

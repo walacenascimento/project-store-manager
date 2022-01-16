@@ -59,9 +59,26 @@ const updateProduct = async (req, res, _next) => {
   return res.status(200).json(update);
 };
 
+// Requisito 4
+const deleteProduct = async (req, res, _next) => {
+   const { id } = req.params;
+   const product = await services.deleteProd(id);
+
+   if (product.status) {
+     const error = {
+       err: { code: 'invalid_data', message: product.message },
+     };
+
+     return res.status(product.status).json(error);
+   }
+
+   return res.status(200).json(product);
+};
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductId,
   updateProduct,
+  deleteProduct,
 }; // modulo de exportação das funções.
