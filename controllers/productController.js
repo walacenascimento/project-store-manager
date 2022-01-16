@@ -1,5 +1,6 @@
 const services = require('../services/productServices'); //  importando o productsSevices da camada de serviço e armazenando na constante services.
 
+// Requisito 1
 // Middleware createPorduto, responsavel pela requisição da função productCreate quem vem da camada de serviço.
 const createProduct = async (req, res, _next) => {
     const { name, quantity } = req.body;
@@ -17,6 +18,33 @@ const createProduct = async (req, res, _next) => {
     return res.status(201).json(newProduct);//  retorno requisição com status de OK!
 };
 
+// Requisito 2
+// busca todos os produtos
+const getAllProducts = async (req, res, _next) => {
+  const products = await services.getAllProd();
+  return res.status(200).json({ products });
+};
+
+// busca o produto pelo Id.
+const getProductId = async (req, res, _next) => {
+  const { id } = req.params;
+  const product = await services.findProductId(id);
+
+  if (product.status) {
+     const error = {
+       err: {
+         code: 'invalid_data', message: product.message,
+       },
+     };
+
+     return res.status(product.status).json(error);
+   }
+
+   return res.status(200).json(product);
+};
+
 module.exports = {
   createProduct,
+  getAllProducts,
+  getProductId,
 }; // modulo de exportação das funções.

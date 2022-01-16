@@ -14,7 +14,10 @@ app.get('/', (_request, response) => {
 response.send();
 });
 
-// app.get('/', (req, res) => res.send('Testando a conexão!'));
+app.get('/', (req, res) => res.send('Testando a conexão!'));
+
+app.get('/products', controllers.getAllProducts); // Lista todos os produtos
+app.get('/products/:id', controllers.getProductId); // lista os produtos pelo id
 
 app.post('/products', controllers.createProduct); // Verbo http usando o método Post, recebendo a rota /products e o middleware createProduct que vem da camada de controllers.
 

@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const connection = require('./connection'); // importando o arquivo de conexão do banco de dados
 
 // função que irá fazer a conexão com o banco de dados e irá executar a query responsável pela inserção dos dados no banco de dados
@@ -16,7 +18,28 @@ const findProductName = async (name) => {
   return productNameExist; // Retorna o resultado da query que foi executada
 };
 
+// Requisito 2
+// lista os produtos pelo Id
+const findAllProducts = async () => {
+  const connect = await connection();
+    const allProducts = await connect.collection('products').find({}).toArray();
+
+    return allProducts;
+};
+// lista os produtos pelo Id
+const findProductById = async (id) => {
+   if (!ObjectId.isValid(id)) {
+     return null;
+   }
+   const connect = await connection();
+   const productId = await connect.collection('products').findOne({ _id: ObjectId(id) });
+
+   return productId;
+};
+
 module.exports = {
   create,
   findProductName,
+  findAllProducts,
+  findProductById,
 };

@@ -39,6 +39,32 @@ const productCreate = async (name, quantity) => {
   };
 }; // constante que recebe o valor da funçaõ create na camada de model e retorna o novo produto que foi cadastrado
 
+// Requisito 2
+// busca todos os produtos
+const getAllProd = async () => {
+  const getAllProducts = await models.findAllProducts();
+
+    // const allProducts = {
+    //   products: getAllProducts,
+    // };
+  return getAllProducts;
+};
+
+// busca os produtos pelo Id
+const findProductId = async (id) => {
+  const product = await models.findProductById(id);
+
+  if (!product) {
+    return {
+      status: 422, message: 'Wrong id format',
+    };
+  }
+
+  return product;
+};
+
 module.exports = {
   productCreate,
+  getAllProd,
+  findProductId,
 };
