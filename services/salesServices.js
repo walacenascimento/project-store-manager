@@ -10,6 +10,7 @@ const validateJoi = Joi.array().items(
 
 const salesCreate = async (array) => {
     const errorObj = {
+        code: 'invalid_data',
         status: 422,
         message: 'Wrong product ID or invalid quantity',
     };
