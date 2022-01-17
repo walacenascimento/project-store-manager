@@ -14,6 +14,7 @@ const {
   getAllSales,
   getSalesId,
   updateSales,
+  deleteSales,
 } = require('./controllers/salesController');
 
 const error = require('./middleware/errorMiddleware');
@@ -43,6 +44,7 @@ app.post('/sales', createSales);
 app.get('/sales', getAllSales);
 app.get('/sales/:id', getSalesId);
 app.put('/sales/:id', updateSales);
+app.delete('/sales/:id', deleteSales);
 
 app.use(error);
 

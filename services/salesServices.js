@@ -69,9 +69,17 @@ const product = { _id, itensSold };
 return product;
 };
 
+// Requisito 8
+const saleDelete = async (id) => {
+  const sale = await models.saleDel(id);
+
+    return sale;
+};
+
 module.exports = {
   salesCreate,
   findAllSales,
   findSalesId,
   salesUpdate,
+  saleDelete,
 };

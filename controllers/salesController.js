@@ -55,9 +55,25 @@ const updateSales = async (req, res, next) => {
   }
 };
 
+// Requisito 8
+
+const deleteSales = async (req, res, next) => {
+  try {
+      const { id } = req.params;
+
+      const sale = await services.saleDelete(id);
+
+      return res.status(200).json(sale);
+  } catch (error) {
+      console.log(`DELETE ERROR: ${error}`);
+      return next(error);
+  }
+};
+
 module.exports = {
   createSales,
   getAllSales,
   getSalesId,
   updateSales,
+  deleteSales,
 };
