@@ -25,6 +25,33 @@ const salesCreate = async (array) => {
     return newProduct;
 };
 
+// Requisito 6
+const findAllSales = async () => {
+  const findSales = await models.AllSales();
+
+  const allSales = {
+      sales: findSales,
+  };
+
+  return allSales;
+};
+
+const findSalesId = async (id) => {
+  const sale = await models.SalesId(id);
+
+    const objErrorNotFound = {
+        code: 'not_found',
+        status: 404,
+        message: 'Sale not found',
+    };
+
+    if (!sale) throw objErrorNotFound;
+
+    return sale;
+};
+
 module.exports = {
   salesCreate,
+  findAllSales,
+  findSalesId,
 };
