@@ -51,8 +51,27 @@ const findSalesId = async (id) => {
     return sale;
 };
 
+// Requisito 7
+const salesUpdate = async (id, productId, quantityProduct) => {
+  const errorObj = {
+    code: 'invalid_data',
+    status: 422,
+    message: 'Wrong product ID or invalid quantity',
+};
+
+if (quantityProduct <= 0) throw errorObj;
+if (typeof quantityProduct !== 'number') throw errorObj;
+
+const { _id, itensSold } = await models.SalesUp(id, productId, quantityProduct);
+
+const product = { _id, itensSold };
+
+return product;
+};
+
 module.exports = {
   salesCreate,
   findAllSales,
   findSalesId,
+  salesUpdate,
 };

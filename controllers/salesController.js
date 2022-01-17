@@ -38,8 +38,26 @@ const getSalesId = async (req, res, next) => {
 }
 };
 
+// Requisto 7
+const updateSales = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const array = req.body;
+
+    const { productId, quantity } = array[0];
+
+    const update = await services.salesUpdate(id, productId, quantity);
+
+    return res.status(200).json(update);
+} catch (error) {
+    console.log(`PUT ERROR: ${error}`);
+    return next(error);
+  }
+};
+
 module.exports = {
   createSales,
   getAllSales,
   getSalesId,
+  updateSales,
 };
